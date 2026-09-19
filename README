@@ -1,0 +1,66 @@
+# Palash-AI 🌐🎙️
+
+### Offline Speech-to-Speech Language Translation System
+
+Palash-AI is an AI-powered **offline speech-to-speech language conversion system** designed to enable multilingual communication without requiring a continuous internet connection.
+
+The project focuses on capturing spoken language, converting speech into text, translating it into the target language, and generating spoken output — all while prioritizing **offline processing, accessibility, and low-connectivity environments**.
+
+> 🚀 **Palash-AI was developed as a prototype for the Smart India Hackathon (SIH) project and is being further developed toward a dedicated mobile application.**
+
+---
+
+## ✨ Key Features
+
+- 🎙️ **Speech Input**
+  - Captures spoken language from the user's microphone.
+
+- 📝 **Speech Recognition**
+  - Converts spoken input into machine-readable text.
+
+- 🌍 **Multilingual Translation**
+  - Translates the recognized speech into the selected target language.
+
+- 🔊 **Speech Output**
+  - Converts the translated text back into speech.
+
+- 📴 **Offline Processing**
+  - Designed to perform core language-conversion operations without depending on continuous internet connectivity.
+
+- ⚡ **Real-Time Interaction**
+  - Designed for conversational, speech-to-speech translation.
+
+- 📱 **Mobile Application Direction**
+  - The current implementation serves as a prototype for a dedicated mobile application.
+
+---
+
+## 🔄 How It Works
+
+```text
+        🎙️ User Speech
+              │
+              ▼
+       ┌───────────────┐
+       │ Speech-to-Text│
+       └───────┬───────┘
+               │
+               ▼
+        📝 Source Text
+               │
+               ▼
+       ┌───────────────┐
+       │  Translation  │
+       │    Engine     │
+       └───────┬───────┘
+               │
+               ▼
+        🌍 Translated Text
+               │
+               ▼
+       ┌───────────────┐
+       │ Text-to-Speech│
+       └───────┬───────┘
+               │
+               ▼
+        🔊 Spoken Output
