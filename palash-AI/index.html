@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhashaSetu - Offline AI Classroom Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div id="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-container">
+          <div class="brand-logo">
+            <i data-lucide="languages"></i>
+          </div>
+          <div class="brand-info">
+            <h1>BhashaSetu</h1>
+            <span>Offline AI Assistant</span>
+          </div>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item active" data-view="dashboard-view">
+            <button>
+              <i data-lucide="layout-dashboard"></i>
+              <span>Dashboard</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="classroom-view">
+            <button>
+              <i data-lucide="users"></i>
+              <span>Classroom</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="materials-view">
+            <button>
+              <i data-lucide="file-text"></i>
+              <span>Materials</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="curriculum-view">
+            <button>
+              <i data-lucide="book-open"></i>
+              <span>Curriculum</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="worksheets-view">
+            <button>
+              <i data-lucide="check-square"></i>
+              <span>Worksheets</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="flashcards-view">
+            <button>
+              <i data-lucide="credit-card"></i>
+              <span>Flashcards</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="history-view">
+            <button>
+              <i data-lucide="history"></i>
+              <span>Translation History</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="settings-view">
+            <button>
+              <i data-lucide="settings"></i>
+              <span>Settings</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="status-widget">
+          <div class="status-dot"></div>
+          <div class="status-widget-text">
+            <h4>Offline AI Ready</h4>
+            <p>All models loaded</p>
+          </div>
+        </div>
+
+        <div class="user-profile-card">
+          <div class="avatar-circle">S</div>
+          <div class="user-info">
+            <h3>Sunita Devi</h3>
+            <p>Class 4 Teacher</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <!-- Top Bar Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="menu-toggle" id="toggle-sidebar">
+            <i data-lucide="menu"></i>
+          </button>
+          <h2 class="page-title" id="header-page-title">Dashboard</h2>
+        </div>
+
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="Search materials, translations...">
+        </div>
+
+        <div class="header-right">
+          <div class="pill-badge">
+            <div class="status-dot"></div>
+            <span>Offline AI Ready</span>
+          </div>
+
+          <button class="icon-btn">
+            <i data-lucide="bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+
+          <div class="avatar-circle" style="width: 36px; height: 36px; font-size: 14px;">S</div>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <div class="content-body">
+        
+        <!-- SECTION 1: DASHBOARD VIEW (Image 1) -->
+        <section id="dashboard-view" class="view-section active">
+          <div class="greeting-banner">
+            <h2>Good Morning, Teacher <span style="display:inline-block; transform: scaleX(-1);">👋</span></h2>
+            <p>Your offline multilingual classroom assistant is ready to help.</p>
+          </div>
+
+          <div class="dashboard-grid">
+            <!-- Left Main Card: Classroom Mode Launch -->
+            <div class="card classroom-control-card">
+              <div class="card-header" style="margin-bottom: 8px;">
+                <div>
+                  <h3 class="card-title">Classroom Mode</h3>
+                  <p class="card-subtitle">Continuous offline voice translation</p>
+                </div>
+                <span class="pill-badge" id="mode-status-tag">
+                  <div class="status-dot"></div>
+                  <span id="mode-status-text">Offline</span>
+                </span>
+              </div>
+
+              <!-- Controls Row -->
+              <div class="control-row">
+                <div class="control-item">
+                  <div class="control-item-left">
+                    <div class="control-icon"><i data-lucide="mic"></i></div>
+                    <div>
+                      <div class="control-label">Microphone</div>
+                      <div class="control-status" id="mic-status-label">Connected</div>
+                    </div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-mic" checked>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Speaker & Language Strip -->
+              <div class="info-strip">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <i data-lucide="volume-2" style="color: var(--primary-blue);"></i>
+                  <span style="font-size: 13px; font-weight: 700;">Speaker <span style="color: var(--success-green); font-size: 11px;">Connected</span></span>
+                </div>
+                <div class="lang-badge">
+                  <span>Translation:</span>
+                  <span id="dash-lang-pair">Hindi + English ➔ Santhali</span>
+                </div>
+              </div>
+
+              <!-- Listening Status Box -->
+              <div class="listening-status-box" id="dash-listening-box">
+                Start classroom to begin listening...
+              </div>
+
+              <!-- Big Action Button -->
+              <button class="btn-primary-large" id="btn-start-classroom">
+                <i data-lucide="play" style="fill: white;"></i>
+                <span>Start Classroom Mode</span>
+              </button>
+            </div>
+
+            <!-- Right Column: Today's Activity -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Today's Activity</h3>
+              </div>
+
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-icon bg-purple"><i data-lucide="mic"></i></div>
+                  <div>
+                    <div class="stat-number">84</div>
+                    <div class="stat-label">Voice Translations</div>
+                    <div class="stat-trend">+12 today</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-icon bg-blue"><i data-lucide="arrow-left-right"></i></div>
+                  <div>
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Materials Translated</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-icon bg-emerald"><i data-lucide="users"></i></div>
+                  <div>
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Student Responses</div>
+                  </div>
+                </div>
+
+                <div class="stat-card">
+                  <div class="stat-icon bg-amber"><i data-lucide="file-check"></i></div>
+                  <div>
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Worksheets Generated</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="progress-container">
+                <div class="progress-info">
+                  <span>Translation sessions today</span>
+                  <span>84 / 100</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Quick Actions & AI System Status -->
+          <div style="display: grid; grid-template-columns: 1fr 360px; gap: 24px;">
+            <div>
+              <h3 class="section-header">Quick Actions</h3>
+              <div class="quick-actions-row">
+                <div class="action-card" id="act-scan">
+                  <div class="action-icon bg-purple"><i data-lucide="camera"></i></div>
+                  <span>Scan Material</span>
+                </div>
+                <div class="action-card" id="act-pdf">
+                  <div class="action-icon bg-pink"><i data-lucide="file-text"></i></div>
+                  <span>Translate PDF</span>
+                </div>
+                <div class="action-card" id="act-ppt">
+                  <div class="action-icon bg-amber"><i data-lucide="file-bar-chart"></i></div>
+                  <span>Translate PPT</span>
+                </div>
+                <div class="action-card" id="act-worksheet">
+                  <div class="action-icon bg-emerald"><i data-lucide="check-square"></i></div>
+                  <span>Generate Worksheet</span>
+                </div>
+                <div class="action-card" id="act-flashcard">
+                  <div class="action-icon bg-blue"><i data-lucide="credit-card"></i></div>
+                  <span>Generate Flashcards</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI System Status Box -->
+            <div class="card">
+              <h3 class="card-title" style="margin-bottom: 14px;">AI System Status</h3>
+              <div class="status-list">
+                <div class="status-row">
+                  <div class="status-row-left">
+                    <div class="status-dot"></div>
+                    <span>Offline AI Engine</span>
+                  </div>
+                  <span class="status-indicator-tag tag-ready">Ready</span>
+                </div>
+                <div class="status-row">
+                  <div class="status-row-left">
+                    <div class="status-dot"></div>
+                    <span>Speech Recognition (ASR)</span>
+                  </div>
+                  <span class="status-indicator-tag tag-ready">Ready</span>
+                </div>
+                <div class="status-row">
+                  <div class="status-row-left">
+                    <div class="status-dot"></div>
+                    <span>Translation Model</span>
+                  </div>
+                  <span class="status-indicator-tag tag-ready">Ready</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: CLASSROOM MODE VIEW (Image 2 & Image 3) -->
+        <section id="classroom-view" class="view-section">
+          <div class="classroom-header-bar">
+            <div>
+              <h2 style="font-size: 20px; font-weight: 800;">Live Classroom Mode</h2>
+              <p style="font-size: 12px; color: var(--text-muted);">Continuous AI Translation & Speech Pipeline</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <!-- Student Doubt Mode Toggle Button -->
+              <button class="btn-secondary" id="btn-toggle-student-mode" style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; border: 2px solid var(--primary-blue); color: var(--primary-blue); background: #EFF6FF; padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease;">
+                <i data-lucide="users" style="width: 14px; height: 14px;"></i>
+                <span id="student-btn-text">🙋 Student Doubt Mode: OFF</span>
+              </button>
+              <div class="telemetry-strip" id="telemetry-display">
+                Status: Stopped | Latency - ASR: 0ms | Trans: 0ms | TTS: 0ms | Total: 0ms
+              </div>
+              <span class="pill-badge" id="live-mode-badge" style="background-color: #F1F5F9; color: var(--text-muted);">
+                ● STOPPED
+              </span>
+            </div>
+          </div>
+
+          <div class="classroom-main-grid">
+            <!-- Left Main Stage -->
+            <div>
+              <div class="card" style="margin-bottom: 24px;">
+                <!-- Center Microphone Button -->
+                <div class="center-mic-stage">
+                  <button class="mic-circle-btn" id="live-mic-btn">
+                    <i data-lucide="play" id="mic-btn-icon" style="fill: currentColor;"></i>
+                  </button>
+                  <p style="margin-top: 14px; font-size: 13px; font-weight: 700; color: var(--text-muted);" id="mic-stage-label">
+                    Click to Start Listening
+                  </p>
+                </div>
+
+                <!-- Language Selection Grid -->
+                <div class="language-selector-row">
+                  <div class="select-group">
+                    <label>Input Language</label>
+                    <select id="sel-input-lang">
+                      <option value="English" selected>English</option>
+                      <option value="Hindi">Hindi (हिन्दी)</option>
+                      <option value="Bengali">Bengali (বাংলা)</option>
+                      <option value="Marathi">Marathi (मराठी)</option>
+                    </select>
+                  </div>
+                  <div class="select-group">
+                    <label>Target Language</label>
+                    <select id="sel-target-lang">
+                      <option value="Tamil" selected>Tamil (தமிழ்)</option>
+                      <option value="Santhali">Santhali (संथाली)</option>
+                      <option value="Telugu">Telugu (తెలుగు)</option>
+                      <option value="Gujarati">Gujarati (ગુજરાતી)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Manual Text Input & Quick Test Bar -->
+                <div style="margin-bottom: 16px;">
+                  <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <input type="text" id="manual-text-input" placeholder="Type or speak phrase (e.g. आपका नाम क्या है)..." style="flex: 1; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 13px; outline: none;">
+                    <button class="btn-secondary" id="btn-submit-text" style="background-color: var(--primary-blue); color: #FFFFFF; font-weight: 700; border: none;">Translate</button>
+                  </div>
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    <span style="font-size: 11px; color: var(--text-muted); font-weight: 700; align-self: center;">Quick Test:</span>
+                    <button class="quick-chip" data-phrase="आपका नाम क्या है" style="padding: 4px 10px; font-size: 11px; background-color: var(--primary-blue-light); color: var(--primary-blue); border: 1px solid var(--primary-blue-border); border-radius: 12px; cursor: pointer; font-weight: 600;">आपका नाम क्या है</button>
+                    <button class="quick-chip" data-phrase="नमस्ते" style="padding: 4px 10px; font-size: 11px; background-color: var(--primary-blue-light); color: var(--primary-blue); border: 1px solid var(--primary-blue-border); border-radius: 12px; cursor: pointer; font-weight: 600;">नमस्ते</button>
+                    <button class="quick-chip" data-phrase="शुभ प्रभात" style="padding: 4px 10px; font-size: 11px; background-color: var(--primary-blue-light); color: var(--primary-blue); border: 1px solid var(--primary-blue-border); border-radius: 12px; cursor: pointer; font-weight: 600;">शुभ प्रभात</button>
+                    <button class="quick-chip" data-phrase="आप कैसे हैं" style="padding: 4px 10px; font-size: 11px; background-color: var(--primary-blue-light); color: var(--primary-blue); border: 1px solid var(--primary-blue-border); border-radius: 12px; cursor: pointer; font-weight: 600;">आप कैसे हैं</button>
+                  </div>
+                </div>
+
+                <!-- Live Transcript Cards -->
+                <div class="live-transcript-card">
+                  <div class="transcript-label" id="teacher-input-header">TEACHER INPUT (HINDI)</div>
+                  <div class="transcript-text" id="live-teacher-text">— Click button above and speak...</div>
+                </div>
+
+                <div class="live-output-card">
+                  <div class="transcript-label" id="target-output-header">SANTHALI OUTPUT (LIVE AUDIO OUT)</div>
+                  <div class="transcript-text" id="live-translated-text">— Live voice translation output will appear here</div>
+                </div>
+
+                <!-- Audio Actions -->
+                <div class="audio-controls-row">
+                  <button class="btn-secondary" id="btn-replay-audio">
+                    <i data-lucide="volume-2"></i>
+                    <span>Replay Speaker</span>
+                  </button>
+                  <button class="btn-secondary" id="btn-repeat-phrase">
+                    <i data-lucide="rotate-cw"></i>
+                    <span>Repeat</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- BHASHASSETU SYSTEM COMMAND PIPELINE v1.0 Dark Terminal Box (Image 3) -->
+              <div class="terminal-card">
+                <div class="terminal-header">
+                  <div class="terminal-title">
+                    <i data-lucide="terminal" style="width: 14px; height: 14px; color: var(--terminal-text);"></i>
+                    <span>BHASHASSETU SYSTEM COMMAND PIPELINE v1.0</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-family: monospace; font-size: 10px; color: var(--terminal-success); font-weight: bold;" id="term-pipeline-status">STATUS: STANDBY</span>
+                    <button id="btn-clear-term" style="background: none; border: 1px solid #334155; color: #94A3B8; font-size: 10px; padding: 2px 8px; border-radius: 4px; cursor: pointer;">Clear Terminal</button>
+                  </div>
+                </div>
+                <div class="terminal-body" id="terminal-log-output">
+                  <div class="log-line"><span class="log-time">[3:37:55 PM]</span> <span class="log-sys">[BHASHASSETU::SYS]</span> <span class="log-msg">System initialized. Ready for speech command input.</span></div>
+                  <div class="log-line"><span class="log-time">[3:37:55 PM]</span> <span class="log-sys">[BHASHASSETU::SYS]</span> <span class="log-success">IndicTrans2 Engine loaded successfully.</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Session History -->
+            <div class="card">
+              <h3 class="card-title" style="margin-bottom: 16px;">Session History</h3>
+              <div id="session-history-list" style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 20px 0;">
+                  No previous sessions recorded in this session.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: MATERIALS VIEW (Image 4) -->
+        <section id="materials-view" class="view-section">
+          <div class="filter-bar">
+            <div class="filter-pills">
+              <button class="pill-btn active">All</button>
+              <button class="pill-btn">PDF</button>
+              <button class="pill-btn">PPT</button>
+              <button class="pill-btn">Worksheet</button>
+              <button class="pill-btn">Flashcard</button>
+            </div>
+
+            <div style="display: flex; gap: 12px;">
+              <button class="btn-secondary"><i data-lucide="camera"></i> Scan</button>
+              <button class="btn-primary-large" style="padding: 10px 20px; font-size: 13px;">
+                <i data-lucide="upload"></i> Upload File
+              </button>
+            </div>
+          </div>
+
+          <div class="materials-grid">
+            <div class="material-card">
+              <div class="mat-header">
+                <span class="mat-type-badge bg-pink">PDF</span>
+                <div>
+                  <div class="mat-title">Chapter 3 – Plants</div>
+                  <div class="mat-meta">Hindi ➔ Santhali • 2.4 MB</div>
+                </div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn-secondary" style="flex: 1;"><i data-lucide="eye"></i> Preview</button>
+                <button class="btn-secondary"><i data-lucide="download"></i> Save</button>
+              </div>
+            </div>
+
+            <div class="material-card">
+              <div class="mat-header">
+                <span class="mat-type-badge bg-amber">PPT</span>
+                <div>
+                  <div class="mat-title">Math – Fractions...</div>
+                  <div class="mat-meta">Hindi ➔ Santhali • 5.8 MB</div>
+                </div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn-secondary" style="flex: 1;"><i data-lucide="eye"></i> Preview</button>
+                <button class="btn-secondary"><i data-lucide="download"></i> Save</button>
+              </div>
+            </div>
+
+            <div class="material-card">
+              <div class="mat-header">
+                <span class="mat-type-badge bg-purple">Flashcard</span>
+                <div>
+                  <div class="mat-title">Animals Flashcard...</div>
+                  <div class="mat-meta">Hindi ➔ Santhali • 840 KB</div>
+                </div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn-secondary" style="flex: 1;"><i data-lucide="eye"></i> Preview</button>
+                <button class="btn-secondary"><i data-lucide="download"></i> Save</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: WORKSHEETS VIEW (Image 5) -->
+        <section id="worksheets-view" class="view-section">
+          <div class="form-grid">
+            <!-- Settings Form -->
+            <div class="card">
+              <h3 class="card-title" style="margin-bottom: 20px;">Worksheet Settings</h3>
+              
+              <div class="form-group">
+                <label>Class</label>
+                <select id="ws-class">
+                  <option>Class 4</option>
+                  <option>Class 3</option>
+                  <option>Class 5</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Subject</label>
+                <select id="ws-subject">
+                  <option>Environmental Science</option>
+                  <option>Mathematics</option>
+                  <option>Language</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Topic</label>
+                <input type="text" value="Plants and their uses" id="ws-topic">
+              </div>
+
+              <div class="form-group">
+                <label>Learning Outcome</label>
+                <input type="text" value="Students can identify 5 local plants" id="ws-outcome">
+              </div>
+
+              <div class="form-group">
+                <label>Difficulty</label>
+                <select id="ws-difficulty">
+                  <option>Medium</option>
+                  <option>Easy</option>
+                  <option>Hard</option>
+                </select>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                  <label>Source Language</label>
+                  <select><option>Hindi</option></select>
+                </div>
+                <div class="form-group">
+                  <label>Target Language</label>
+                  <select><option>Santhali</option></select>
+                </div>
+              </div>
+
+              <button class="btn-primary-large" id="btn-generate-ws" style="margin-top: 12px;">
+                <i data-lucide="zap"></i> Generate Worksheet
+              </button>
+            </div>
+
+            <!-- Preview Box -->
+            <div class="card">
+              <h3 class="card-title" style="margin-bottom: 20px;">Bilingual Preview</h3>
+              <div class="preview-box" id="ws-preview-area">
+                <i data-lucide="check-square" style="width: 48px; height: 48px; color: var(--primary-blue-border); margin-bottom: 12px;"></i>
+                <p>Configure settings and click Generate Worksheet</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5, 6, 7: CURRICULUM, FLASHCARDS, SETTINGS -->
+        <section id="curriculum-view" class="view-section">
+          <div class="card">
+            <h3 class="card-title">Multilingual Curriculum Index</h3>
+            <p style="color: var(--text-muted); margin-top: 8px;">Explore NCERT and state curriculum mapped to regional languages.</p>
+          </div>
+        </section>
+
+        <section id="flashcards-view" class="view-section">
+          <div class="card">
+            <h3 class="card-title">Interactive Flashcards Studio</h3>
+            <p style="color: var(--text-muted); margin-top: 8px;">Create and practice vocabulary flashcards in Hindi & Santhali.</p>
+          </div>
+        </section>
+
+        <section id="history-view" class="view-section">
+          <div class="card">
+            <h3 class="card-title">Translation History Logs</h3>
+            <p style="color: var(--text-muted); margin-top: 8px;">Search previous voice and document translations.</p>
+          </div>
+        </section>
+
+        <section id="settings-view" class="view-section">
+          <div class="card">
+            <h3 class="card-title">System & Offline Model Settings</h3>
+            <p style="color: var(--text-muted); margin-top: 8px;">Manage IndicTrans2 local weights, ASR audio thresholds, and TTS speech rate.</p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
